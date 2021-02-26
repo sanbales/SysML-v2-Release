@@ -4,20 +4,21 @@ echo --- Step 1: Testing Conda installation ---
 where conda
 if errorlevel 1 (
     echo Conda is not installed. Please install Conda and re-run.
+    echo Make sure to create a new environment, e.g., conda create -n sysml -y
     goto :error
 )
 call conda --version || goto :error
 
-echo --- Step 2: Testing Java installation ---
+echo --- Step 2: Installing dependencies into Conda environment ---
+call conda install --file conda_packages.txt -c conda-forge -y || goto:error
+
+echo --- Step 3: Testing Java installation ---
 where java
 if errorlevel 1 (
-    echo Java is not installed. Please install Java and re-run.
+    echo Java is not installed. Please manually install it.
     goto :error
 )
 call java -version || goto :error
-
-echo --- Step 3: Installing dependencies into Conda environment ---
-call conda install python=3.* jupyterlab=2.* graphviz=2.* nodejs=14.* -c conda-forge -y || goto:error
 
 echo --- Step 4: Testing Python installation ---
 where python

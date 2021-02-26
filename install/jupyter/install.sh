@@ -24,12 +24,12 @@ echo "--- Step 1: Testing Conda installation ---"
 command -v conda || (echo "Conda is not installed. Please install Conda and re-run." && return 1)
 conda --version
 
-echo "--- Step 2: Testing Java installation ---"
-command -v java || (echo "Java is not installed. Please install Java and re-run." && return 1)
-java -version
+echo "--- Step 2: Installing dependencies into Conda environment ---"
+conda install --file conda_packages.txt -c conda-forge -y
 
-echo "--- Step 3: Installing dependencies into Conda environment ---"
-conda install python=3.* jupyterlab=2.* graphviz=2.* nodejs=14.* -c conda-forge -y
+echo "--- Step 3: Testing Java installation ---"
+command -v java || (echo "Java is not installed. Please manually install it." && return 1)
+java -version
 
 echo "--- Step 4: Testing Python 3 installation ---"
 command -v python3 || (echo "Python 3 is not installed. Please manually install it." && return 1)
